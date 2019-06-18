@@ -7,7 +7,7 @@ import {
   FlatList,
   StyleSheet
 } from "react-native";
-import api from "../services/api";
+import api, { apiUrl } from "../services/api";
 import io from "socket.io-client";
 
 import camera from "../assets/camera.png";
@@ -51,7 +51,7 @@ export default class Feed extends Component {
   };
 
   registerToSocket = () => {
-    const socket = io("http://localhost:3333");
+    const socket = io(apiUrl);
 
     socket.on("post", newPost => {
       this.setState(pS => ({
@@ -87,7 +87,7 @@ export default class Feed extends Component {
 
               <Image
                 style={styles.feedImage}
-                source={{ uri: `http://localhost:3333/files/${item.image}` }}
+                source={{ uri: `${apiUrl}/files/${item.image}` }}
               />
 
               <View style={styles.feedItemFooter}>
